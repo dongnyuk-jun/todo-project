@@ -15,23 +15,26 @@ public class BackendApplication {
 		SpringApplication.run(BackendApplication.class, args);
 	}
 
+	/*
 	// DB 연결용 테스트 코드
 	@Bean
 	public CommandLineRunner dbTest(UserRepository userRepository) {
 		return args -> {
 			// 테스트 유저 생성
 			User user = new User(
-					"testuser2",
+					"testuser13",
 					"1234",
 					"test@example.com",
-					"tester2",
+					"tester13",
 					"ROLE_USER"
 			);
 			userRepository.save(user);
 
 			// 조회 테스트
-			User found = userRepository.findByUserId("testuser").orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다. "));
+			User found = userRepository.findByUserId("testuser13").orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다. "));
 			System.out.println("조회된 사용자 닉네임: " + found.getNickname());
 		};
 	}
+
+	 */
 }
