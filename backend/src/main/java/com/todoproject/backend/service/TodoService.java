@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class TodoService {
     private final TodoRepository todoRepository;
@@ -19,12 +20,18 @@ public class TodoService {
     }
 
     // 할 일 추가
-    public Todo addTodo(String userId, String content) {
+    public Todo addTodo(String userId, String title) {
         User user = userRepository.findByUserId(userId).orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
         Todo todo = new Todo();
         todo.setUser(user);
+        todo.setTitle(title);
 
-        return todo;
+        return todoRepository.save(todo);
+    }
+
+    public List<Todo> getTodosByUserId(String userId) {
+        User user = userRepository.findByUserId(userId).orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+        return todoRepository.findByUser(user);
     }
 }
