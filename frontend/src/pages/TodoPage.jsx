@@ -11,6 +11,8 @@ const TodoPage = () => {
     const fetchTodos = async () => {
         try {
             const response = await axios.get('/todos');
+            
+            localStorage.setItem("token", response.data.token);
             setTodos(response.data);
         } catch (error) {
             alert('할 일을 불러오지 못했습니다: ' + error.message);

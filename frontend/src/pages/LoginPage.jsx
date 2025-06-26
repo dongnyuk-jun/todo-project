@@ -17,6 +17,7 @@ function LoginPage() {
             );
             const token = response.data.token;
             saveToken(token);
+            localStorage.setItem("token", response.data.token);
             alert('로그인 성공');
             navigate('/todos');
         } catch (error) {
