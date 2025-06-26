@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from '../utils/axiosInstance'
 
 const TodoPage = () => {
-    const [todos, setTodos] = useState('');
+    const [todos, setTodos] = useState([]);
 
     useEffect(() => {
         fetchTodos();

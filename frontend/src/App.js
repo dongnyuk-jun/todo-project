@@ -1,3 +1,4 @@
+/*
 import logo from './logo.svg';
 import './App.css';
 
@@ -20,6 +21,21 @@ function App() {
       </header>
     </div>
   );
+}
+
+export default App;
+*/
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import TodoPage from './pages/TodoPage';
+
+function App() {
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<TodoPage />} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;
