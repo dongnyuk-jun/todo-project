@@ -27,9 +27,11 @@ public class Todo {
     @Column(nullable = false)
     private boolean completed = false;
 
+    /*
     // 사용자 ID
     @Column(nullable = false)
     private String userId;
+     */
 
     // 생성 시간
     @Column(nullable = false)
@@ -45,7 +47,7 @@ public class Todo {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
-        this.userId = userId;
+        //this.userId = userId;
         createdAt = LocalDateTime.now();
     }
 
@@ -54,12 +56,14 @@ public class Todo {
         return id;
     }
 
+    /*
     public String getUserId() {
         return userId;
     }
     public void setUserId(String userId) {
         this.userId = userId;
     }
+    */
 
     public String getTitle() {
         return title;
