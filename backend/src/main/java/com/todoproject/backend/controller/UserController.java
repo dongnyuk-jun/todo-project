@@ -1,6 +1,6 @@
 package com.todoproject.backend.controller;
 
-import com.todoproject.backend.dto.SignUpRequestDto;
+import com.todoproject.backend.dto.auth.SignupRequestDto;
 import com.todoproject.backend.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ public class UserController {
 
     // 회원가입 api
     @PostMapping("/signup")
-    public ResponseEntity<?> signUp(@RequestBody SignUpRequestDto dto) {
+    public ResponseEntity<?> signUp(@RequestBody SignupRequestDto dto) {
         try {
             userService.registerUser(dto);
             return ResponseEntity.ok("회원가입 완료");

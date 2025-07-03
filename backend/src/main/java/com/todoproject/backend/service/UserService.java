@@ -1,11 +1,10 @@
 package com.todoproject.backend.service;
 
 import com.todoproject.backend.domain.User;
-import com.todoproject.backend.dto.SignUpRequestDto;
+import com.todoproject.backend.dto.auth.SignupRequestDto;
 import com.todoproject.backend.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
 
 @Service
 public class UserService {
@@ -18,7 +17,7 @@ public class UserService {
     }
 
     // 회원가입
-    public void registerUser(SignUpRequestDto dto) {
+    public void registerUser(SignupRequestDto dto) {
         if(userRepository.findByUserId(dto.getUserId()).isPresent()) {
             throw new IllegalArgumentException("이미 존재하는 사용자 ID입니다.");
         }

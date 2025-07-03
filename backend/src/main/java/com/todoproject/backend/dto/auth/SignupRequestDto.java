@@ -1,19 +1,24 @@
-package com.todoproject.backend.dto;
+package com.todoproject.backend.dto.auth;
 
-public class SignUpRequestDto {
+public class SignupRequestDto {
     private String userId;
     private String password;
-    private String nickname;
     private String email;
+    private String nickname;
 
-    public SignUpRequestDto() {}
+    public SignupRequestDto() {}
+
+    public SignupRequestDto(String userId, String password, String email, String nickname) {
+        this.userId = userId;
+        this.password = password;
+        this.email = email;
+        this.nickname = nickname;
+    }
 
     public void setUserId(String userId) {
         this.userId = userId;
     }
-    public String getUserId() {
-        return userId;
-    }
+    public String getUserId() { return userId; }
 
     public void setPassword(String password) {
         this.password = password;
