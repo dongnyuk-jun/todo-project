@@ -9,6 +9,10 @@ import com.todoproject.backend.repository.UserRepository;
 import com.todoproject.backend.service.TodoService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class TodoServiceImpl implements TodoService {
     private final TodoRepository todoRepository;
@@ -42,5 +46,35 @@ public class TodoServiceImpl implements TodoService {
                 saved.getCreatedAt(),
                 saved.getUpdatedAt()
         );
+    }
+
+    // 조회
+    @Override
+    public List<TodoResponseDto> getTodos(String userId) {
+        Optional<User> userOpt = userRepository.findByUserId(userId);
+        if(userOpt.isEmpty()) {
+            throw new IllegalArgumentException("사용자를 찾을 수 없습니다. ");
+        }
+
+        User user = userOpt.get();
+
+        // 해당 사용자의 할 일 목록 조회
+        List<Todo> todoList = todoRepository.findByUser(user);
+
+        // 응답 DTO로 변환
+        List<TodoResponseDto> responseList = new ArrayList<>();
+        for(Todo todo: todoList) {
+            responseList.add(new TodoResponseDto(
+                    todo.getId(),
+                    todo.getTitle(),
+                    todo.getDescription(),
+                    todo.getDueDate(),
+                    todo.isCompleted(),
+                    todo.getCreatedAt(),
+                    todo.getUpdatedAt()
+            ));
+        }
+
+        return responseList;
     }
 }
