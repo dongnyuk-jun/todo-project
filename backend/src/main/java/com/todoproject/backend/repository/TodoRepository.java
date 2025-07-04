@@ -9,4 +9,7 @@ import java.util.List;
 public interface TodoRepository extends JpaRepository<Todo, Long> {
     // To Do list 반환
     List<Todo> findByUser(User user);
+
+    // 사용자 + 완료 여부 List 반환
+    List<Todo> findByUserAndCompleted(User user, boolean completed);
 }

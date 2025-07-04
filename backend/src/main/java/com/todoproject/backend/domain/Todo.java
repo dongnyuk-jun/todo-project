@@ -11,7 +11,7 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 할 일 제목
+    // 할 일 제목 (필수)
     @Column(nullable = false)
     private String title;
 
@@ -35,20 +35,26 @@ public class Todo {
 
     // 생성 시간
     @Column(nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
 
+    // 수정 시간
+    @Column
+    private LocalDateTime updatedAt;
+
+    // 사용자
     @ManyToOne(fetch =  FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     public Todo() {}
 
-    public Todo(String title, String description, LocalDateTime dueDate, String userId) {
+    public Todo(String title, String description, LocalDateTime dueDate, User user) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
-        //this.userId = userId;
+        this.user = user;
         createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
 
     // Getter, Setter
@@ -70,6 +76,7 @@ public class Todo {
     }
     public void setTitle(String title) {
         this.title = title;
+        this.updatedAt = LocalDateTime.now();
     }
 
     public String getDescription() {
@@ -77,6 +84,7 @@ public class Todo {
     }
     public void setDescription(String description) {
         this.description = description;
+        this.updatedAt = LocalDateTime.now();
     }
 
     public LocalDateTime getDueDate() {
@@ -84,17 +92,23 @@ public class Todo {
     }
     public void setDueDate(LocalDateTime dueDate) {
         this.dueDate = dueDate;
+        this.updatedAt = LocalDateTime.now();
     }
 
-    public boolean getIsCompleted() {
+    public boolean isCompleted() {
         return completed;
     }
     public void setCompleted(boolean completed) {
         this.completed = completed;
+        this.updatedAt = LocalDateTime.now();
     }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
     public User getUser() {
@@ -102,5 +116,6 @@ public class Todo {
     }
     public void setUser(User user) {
         this.user = user;
+        this.updatedAt = LocalDateTime.now();
     }
 }
