@@ -25,9 +25,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest requst, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // 1. 헤더에서 AUthorization 값 추출
-        String header = requst.getHeader("Authorization");
+        String header = request.getHeader("Authorization");
 
         if(header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7);
@@ -44,7 +44,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     // 5. 인증 객체 생성 후 SecurityContext에 등록
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(requst));
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    System.out.println("\uD83D\uDD25userId from token: " + userId);
+                    System.out.println("✅authentication 등록: " + authentication.getName());
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             } catch (JwtException | IllegalArgumentException e) {
@@ -52,6 +54,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
 
-        filterChain.doFilter(requst, response);
+        filterChain.doFilter(request, response);
     }
 }
