@@ -77,4 +77,43 @@ public class TodoServiceImpl implements TodoService {
 
         return responseList;
     }
+
+    @Override
+    public TodoResponseDto updateTodo(Long id, TodoRequestDto requestDto, String userId) {
+        Optional<User> userOpt = userRepository.findByUserId(userId);
+        if(userOpt.isEmpty()) {
+            throw new IllegalArgumentException("사용자를 찾을 수 없습니다. ");
+        }
+
+        User user = userOpt.get();
+
+        Optional<Todo> todoOpt = todoRepository.findById(id);
+        if(todoOpt.isEmpty()) {
+            throw new IllegalArgumentException("해당 할 일을 찾을 수 없습니다. ");
+        }
+
+        Todo todo = todoOpt.get();
+
+        if(!todo.getUser().getId().equals(user.getId())) {
+            throw new SecurityException("본인의 할 일만 수정할 수 있습니다. ");
+        }
+
+        // 수정
+        todo.setTitle(requestDto.getTitle());
+        todo.setDescription(requestDto.getDescription());
+        todo.setDueDate(requestDto.getDueDate());
+
+        // 저장
+        todoRepository.save(todo);
+
+        return new TodoResponseDto(
+                todo.getId(),
+                todo.getTitle(),
+                todo.getDescription(),
+                todo.getDueDate(),
+                todo.isCompleted(),
+                todo.getCreatedAt(),
+                todo.getUpdatedAt()
+        );
+    }
 }

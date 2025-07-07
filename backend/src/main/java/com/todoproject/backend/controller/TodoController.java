@@ -52,4 +52,14 @@ public class TodoController {
 
         return ResponseEntity.ok(todos);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TodoResponseDto> updateTodo(@PathVariable Long id, @RequestBody TodoRequestDto requestDto, HttpServletRequest request) {
+        String token = jwtTokenProvider.resolveToken(request);
+        String userId = jwtTokenProvider.getUserId(token);
+
+        TodoResponseDto updated = todoService.updateTodo(id, requestDto, userId);
+
+        return ResponseEntity.ok(updated);
+    }
 }

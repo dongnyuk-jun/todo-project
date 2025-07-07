@@ -8,4 +8,5 @@ import java.util.List;
 public interface TodoService {
     TodoResponseDto createTodo(TodoRequestDto requestDto, String userId);
     List<TodoResponseDto> getTodos(String userId);
+    TodoResponseDto updateTodo(Long id, TodoRequestDto requestDto, String userId);
 }

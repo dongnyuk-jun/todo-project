@@ -9,7 +9,7 @@ public class TodoRequestDto {
 
     public TodoRequestDto() {}
 
-    public TodoRequestDto(String title, String description, LocalDateTime dueTime) {
+    public TodoRequestDto(String title, String description, LocalDateTime dueTime, boolean completed, LocalDateTime updatedAt) {
         this.title = title;
         this.description = description;
         this.dueDate = dueTime;
