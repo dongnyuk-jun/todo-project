@@ -13,7 +13,7 @@ public class TodoResponseDto {
 
     public TodoResponseDto() {}
 
-    public TodoResponseDto(Long id, String title, String description, LocalDateTime dueDate, boolean completed, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public TodoResponseDto(Long id, String title, String description, LocalDateTime dueDate, Boolean completed, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.title = title;
         this.description = description;

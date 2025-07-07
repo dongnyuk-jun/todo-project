@@ -25,7 +25,7 @@ public class Todo {
 
     // 완료 여부
     @Column(nullable = false)
-    private boolean completed = false;
+    private Boolean completed = false;
 
     /*
     // 사용자 ID
@@ -95,7 +95,7 @@ public class Todo {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public boolean isCompleted() {
+    public Boolean isCompleted() {
         return completed;
     }
     public void setCompleted(boolean completed) {
