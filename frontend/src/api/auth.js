@@ -11,5 +11,7 @@ export async function login(userId, password) {
         throw new Error("로그인 실패");
     }
 
-    return await response.json();
+    const data = await response.json();
+    localStorage.setItem('accessToken', data.token);
+    return data;
 }

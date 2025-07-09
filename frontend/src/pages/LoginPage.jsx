@@ -1,49 +1,47 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { saveToken } from '../utils/token';
-import { useNavigate } from 'react-router-dom'
-
+import { useState } from 'react';
 import { login } from '../api/auth';
+import { useNavigate } from 'react-router-dom';
 
-function LoginPage() {
+export default function LoginPage() {
     const [userId, setUserId] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate;
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
-    const handleLogin = async() => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/api/auth/login', 
-                {userId, password,}
-            );
-            const token = response.data.token;
-            saveToken(token);
-            localStorage.setItem("token", response.data.token);
-            alert('로그인 성공');
+            await login(userId, password);
             navigate('/todos');
-        } catch (error) {
-            alert('로그인 실패: ' + error.response?.data?.message || error.message)
+        } catch (err) {
+            setError('아이디 또는 비밀번호를 확인해주세요. ');
         }
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-            <h2 className="text-2xl font-bold mb-4">로그인</h2>
-            <input
-                type="text"
+        <div className='flex flex-col items-center mt-32'>
+            <h2 className='text-2xl font-bold mb-4'>로그인</h2>
+            <form onSubmit={handleSubmit} className='space-y-4 w-64'>
+                <input
+                type='text'
+                placeholder='User ID'
+                className='w-full border p-2 rounded'
                 value={userId}
                 onChange={(e) => setUserId(e.target.value)}
-                className='border p-2 mb-2'
-            />
-            <input
-                type="password"
+                />
+
+                <input
+                type='password'
+                placeholder='Password'
+                className='w-full border p-2 rounded'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                className='border p-2 mb-4'
-            />
-            <button type="submit" className="w-full bg-bule-500 text-white px-4 py-2 rounded">로그인</button>
-        </div>
-    );
-}
+                />
 
-export default LoginPage;
+                {error && <p className='text-red-500'>{error}</p>}
+
+                <button type='submit' className='w-full bg-blue-500 text-white p-2 rounded'>로그인</button>
+            </form>
+        </div>
+    )
+}
