@@ -1,7 +1,8 @@
 export async function fetchTodos() {
     const token = localStorage.getItem('accessToken');
-    const response = await fetch('http://localhost:8080/todos', {
+    const response = await fetch('http://localhost:8080/api/todos', {
         headers: {
+            'Content-Type' : 'application/json',
             'Authorization': `Bearer ${token}`,
         },
     });

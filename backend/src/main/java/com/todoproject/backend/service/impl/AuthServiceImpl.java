@@ -50,7 +50,7 @@ public class AuthServiceImpl implements AuthService {
                 encodePassword,
                 signupRequestDto.getEmail(),
                 signupRequestDto.getNickname(),
-                "ROEL_USER"
+                "ROLE_USER"
         );
 
         // 5. 저장

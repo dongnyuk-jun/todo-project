@@ -3,10 +3,15 @@ package com.todoproject.backend.config.auth;
 import com.todoproject.backend.domain.User;
 import com.todoproject.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.List;
 
 // 사용자 정보를 가져와 인증 처리
 @Service
@@ -26,4 +31,5 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         return new CustomUserDetails(user);
     }
+
 }
